@@ -2,16 +2,20 @@ import React, { useState, useEffect } from 'react';
 import './ProductList.css'
 import CartItem from './CartItem';
 import { addItem } from './CartSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 
 function ProductList({ onHomeClick }) {
     // State to show cart
     const [showCart, setShowCart] = useState(false);
     // State to control the visibility of the About Us page
     const [showPlants, setShowPlants] = useState(false); 
-    // Boolean, product is in the cart
+    // Boolean, is product in the cart
     const [addedToCart, setAddedToCart] = useState({});
+    // Dispatch variable
     const dispatch = useDispatch();
+    // CartItems
+    const CartItems = useSelector(state => state.cart.items);
+    // Plants array
     const plantsArray = [
         {
             category: "Air Purifying Plants",
@@ -238,6 +242,18 @@ function ProductList({ onHomeClick }) {
         color: 'white',
         fontSize: '30px',
         textDecoration: 'none',
+    }
+
+    {/* Calculate total quantity of items */}
+    const calculateTotalQuantity = () => {
+        if (!CartItems) return 0;
+        
+        let totalQuantity = 0;
+        for (const item of CartItems) {
+            totalQuantity =+ item.quantity;
+        }
+
+        return totalQuantity;
     }
 
     {/* Add product to cart and change the button style */}
