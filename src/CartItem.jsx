@@ -48,6 +48,7 @@ const CartItem = ({ onContinueShopping }) => {
     return totalCostItem;
   };
 
+  {/* Render product cards in the cart*/}
   return (
     <div className="cart-container">
       <h2 style={{ color: 'black' }}>Total Cart Amount: ${calculateTotalAmount()}</h2>
