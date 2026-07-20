@@ -344,9 +344,9 @@ function ProductList({ onHomeClick }) {
                                         <div className="product-cost">{plant.cost}</div>
                                         {/* FIX NEEDED Button should change the style to grey if the item is in the cart!!! */}
                                         <button
-                                            className="product-button"
+                                            className={`product-button ${CartItems?.some(item => item?.name === plant?.name) ? 'added-to-cart' : ''}`}
                                             onClick={() => handleAddToCart(plant)}>
-                                            Add to Cart
+                                            {CartItems?.some(item => item?.name === plant?.name) ? 'Added to Cart' : 'Add to Cart'}
                                         </button>
                                     </div>
                                 ))}
