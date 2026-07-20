@@ -15,6 +15,13 @@ function ProductList({ onHomeClick }) {
     const dispatch = useDispatch();
     // Cart Items
     const CartItems = useSelector((state) => state.cart.items);
+    // Cart Item quantity
+    const [totalItemQuantity, setTotalItemQuantity] = useState(0);
+    useEffect(() => {
+        const total = CartItems ? CartItems.reduce((total, item) => total + item.quantity, 0) : 0;
+        setTotalItemQuantity(total);
+    }, [CartItems]);
+
     // Cart
     const plantsArray = [
         {
@@ -251,10 +258,6 @@ function ProductList({ onHomeClick }) {
         fontSize: '80px'
     }
 
-    {/* Calculate total quantity of items */ }
-    const calculateTotalQuantity = () => { 
-	return CartItems ? CartItems.reduce((total, item) => total + item.quantity, 0) : 0; };
-
     {/* Add product to cart and change the button style */ }
     const handleAddToCart = (product) => {
         dispatch(addItem(product));
@@ -319,7 +322,7 @@ function ProductList({ onHomeClick }) {
                                 textAnchor='middle'
                                 dominantBaseline='central'
                                 fill='white'
-                                style={styleCart}>0</text>
+                                style={styleCart}>{totalItemQuantity}</text>
                         </svg></h1></a></div>
                 </div>
             </div>
